@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block content %}
+{% set profs = ['Инженер-исследователь', 'Пилот', 'Строитель',
+                'Экзобиолог', 'Врач', 'Инженер по терраформированию',
+                'Климатолог', 'Специалист по радиционной защите'] %}
+{% if list == 'ol' %}
+        <ul><h2>Список профессий</h2>
+    {% for prof in profs %}
+        <ul><p>{{ loop.index }}. {{ prof }}</p></ul>
+    {% endfor %}</ul>
+{% elif list == 'ul' %}
+        <ul><h2>Список профессий</h2>
+    {% for prof in profs %}
+        <ul><li><p>{{ prof }}</p></li></ul>
+    {% endfor %}</ul>
+{% else %} <ul><h2>Параметр введен неверно</h2>
+{% endif %}
+{% endblock %}

@@ -2,10 +2,10 @@
 
 {% block content %}
 {% if 'инженер' in prof.lower() or 'строитель' in prof.lower() %}
-    <h2> Инженерные симуляторы </h2>
+    <h2><ul>Инженерные симуляторы</ul></h2>
     <img src="../../static/images/Инженерные симуляторы.png">
 {% else %}
-    <h2> Научные симуляторы </h2>
+    <h2><ul>Научные симуляторы</ul></h2>
     <img src="../../static/images/Научные симуляторы.png">
 {% endif %}
 {% endblock %}

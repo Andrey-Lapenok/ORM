@@ -15,4 +15,9 @@ def training(prof):
     return render_template('training.html', prof=prof)
 
 
-app.run(port=8080, host='127.0.0.1')
+@app.route('/list_prof/<list>')
+def professions(list):
+    return render_template('professions.html', list=list)
+
+
+app.run(port=8070, host='127.0.0.1')

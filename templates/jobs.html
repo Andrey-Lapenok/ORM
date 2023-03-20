@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% set cabin = 'Каюта №' %}
+<ul>
+    <ul><h2>Works log</h2></ul>
+    {% for job in jobs %}
+        {% if job.is_finished %} {% set is_finished = 'Is finished' %}
+        {% else %} {% set is_finished = 'Is not finished' %}
+        {% endif %}
+        <h3>Activity # {{ loop.index }}</h3>
+        <table border="1">
+            <tr>
+                <th>Title of activity</th>
+                <th>Team leader</th>
+                <th>Duration</th>
+                <th>List of collaborators</th>
+                <th>Is finished</th>
+            </tr>
+            <tr>
+                <td>{{ job.job.capitalize() }}</td>
+                <td>{{ team_leaders[job.id] }}</td>
+                <td>{{ job.work_size }} hours</td>
+                <td>{{ job.collaborators }}</td>
+                <td>{{ is_finished }}</td>
+            </tr>
+        </table>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,35 +1,26 @@
+import datetime
 from data import db_session
-from data import __all_models
-from flask import Flask
+from data.__all_models import *
+from flask import (Flask, url_for, request, render_template)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['SECRET_KEY'] = 'yandex_lyceum_secret_key'
 
 
 def main():
-    db_session.global_init("db/blogs.db")
-    user = __all_models.User()
-    user.surname = "Scott"
-    user.name = "Ridley"
-    user.age = 21
-    user.position = "captain"
-    user.speciality = "research engineer"
-    user.address = "module_1"
-    user.email = "scott_chief@mars.org"
+    db_session.global_init("db/colonisation_db.db")
+    app.run()
+
+
+@app.route("/")
+def index():
     db_sess = db_session.create_session()
-    db_sess.add(user)
-    for i in range(3):
-        user = __all_models.User()
-        user.surname = "Sailor " + str(i)
-        user.name = "Muller"
-        user.age = 20 + i
-        user.position = "Sailor"
-        user.speciality = "Meal"
-        user.address = "module_" + str(i)
-        user.email = f"sailor_{i}@mars.org"
-        db_sess.add(user)
-    db_sess.commit()
-    # app.run()
+    jobs = db_sess.query(Jobs)
+    team_leaders = {}
+    for job in jobs:
+        team_leader = db_sess.query(User).filter(User.id == job.team_leader).first()
+        team_leaders[job.id] = team_leader.name + ' ' + team_leader.surname
+    return render_template("jobs.html", jobs=jobs, team_leaders=team_leaders)
 
 
 if __name__ == '__main__':
